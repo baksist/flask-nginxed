@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  web:
+    build: 
+      context: ./app
+    volumes:
+      - "sockets:/sockets"
+      - "./app:/app:ro"
+  nginx:
+    build: 
+      context: ./nginx
+    ports:
+      - 1337:80
+    volumes:
+      - "sockets:/sockets"
+      - "./nginx/nginx.conf:/nginx.conf"
+    restart: always
+
+volumes:
+  sockets:
